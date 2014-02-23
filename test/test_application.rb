@@ -1,9 +1,18 @@
-require_relative 'test_helper'
+require 'test_helper'
 
-class TestApp < Rulers::Application
+class TestController < Rulers::Controller
+  def index
+    "Hello!"
+  end
 end
 
-class RulersAppTest < MiniTest::Test
+class TestApp < Rulers::Application
+  def get_controller_and_action(env)
+    [TestController, "index"]
+  end
+end
+
+class RulersAppTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
 
   def app
@@ -11,7 +20,7 @@ class RulersAppTest < MiniTest::Test
   end
 
   def test_request
-    get "/"
+    get "/quotes/a_quote"
 
     assert last_response.ok?
     body = last_response.body
