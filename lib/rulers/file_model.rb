@@ -5,8 +5,7 @@ module Rulers
     class FileModel
       def initialize(filename)
         @filename = filename
-        # If filename is "dir/37.json", @id is 37
-        basename = file.split(filename) [-1]
+        basename = file.split(filename)[-1]
         @id = File.basename(basename, ".json").to_i
 
         obj = File.read(filename)
